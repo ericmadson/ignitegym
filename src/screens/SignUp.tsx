@@ -14,11 +14,11 @@ import { Button } from "@components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigatorRouteProps } from "@routes/auth.routes";
 
-export function SignIn() {
+export function SignUp() {
   const navigation = useNavigation<AuthNavigatorRouteProps>();
 
-  function handleNewAccount() {
-    navigation.navigate("signUp");
+  function handleGoBack() {
+    navigation.goBack();
   }
   return (
     <ScrollView
@@ -44,7 +44,8 @@ export function SignIn() {
           </Center>
 
           <Center gap="$2">
-            <Heading color="$gray100">Acessa a conta</Heading>
+            <Heading color="$gray100">Crie sua conta</Heading>
+            <Input placeholder="Nome" />
             <Input
               placeholder="E-mail"
               keyboardType="email-address"
@@ -52,20 +53,15 @@ export function SignIn() {
             />
             <Input placeholder="Senha" secureTextEntry />
 
-            <Button title="Acessar" />
+            <Button title="Criar e acessar" />
           </Center>
 
-          <Center flex={1} justifyContent="flex-end" mt="$4">
-            <Text color="$gray100" fontSize="$sm" mb="$3" fontFamily="$body">
-              Ainda não tem acesso?
-            </Text>
-
-            <Button
-              title="Criar conta"
-              variant="outline"
-              onPress={handleNewAccount}
-            />
-          </Center>
+          <Button
+            title="Voltar para o login"
+            variant="outline"
+            mt="$12"
+            onPress={handleGoBack}
+          />
         </VStack>
       </VStack>
     </ScrollView>
