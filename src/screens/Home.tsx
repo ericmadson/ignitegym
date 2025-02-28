@@ -6,13 +6,23 @@ import { useState } from "react";
 import { FlatList } from "react-native";
 
 export function Home() {
+  const [exercises, setExercises] = useState([
+    "Puxada frontal",
+    "Remada curvada",
+    "Remada unilateral",
+    "Levantamento terra",
+    "1",
+    "2",
+    "3",
+    "4",
+  ]);
   const [groups, setGroups] = useState([
     "Costas",
     "Bíceps",
     "Tríceps",
     "Ombros",
   ]);
-  const [groupSelected, setGroupSelected] = useState("costas");
+  const [groupSelected, setGroupSelected] = useState("Costas");
 
   return (
     <VStack flex={1}>
@@ -24,7 +34,7 @@ export function Home() {
         renderItem={({ item }) => (
           <Group
             name={item}
-            isActive={groupSelected === item}
+            isActive={groupSelected.toLowerCase() === item.toLowerCase()}
             onPress={() => setGroupSelected(item)}
           />
         )}
@@ -34,17 +44,23 @@ export function Home() {
         style={{ marginVertical: 40, maxHeight: 44, minHeight: 44 }}
       />
 
-      <VStack px="$8">
+      <VStack px="$8" flex={1}>
         <HStack justifyContent="space-between" mb="$5" alignItems="center">
           <Heading color="$gray200" fontSize="$md" fontFamily="$heading">
             Exercícios
           </Heading>
 
           <Text color="$gray200" fontSize="$sm" fontFamily="$body">
-            4
+            {exercises.length}
           </Text>
         </HStack>
-        <ExerciseCard />
+        <FlatList
+          data={exercises}
+          keyExtractor={(item) => item}
+          renderItem={() => <ExerciseCard />}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 20 }}
+        />
       </VStack>
     </VStack>
   );
